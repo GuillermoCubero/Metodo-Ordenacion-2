@@ -1,6 +1,6 @@
 public class Ordenar1Vector implements OrdenarVector {
     public void ordena (int[] vec, DatosEstadisticos de){
-        de.añadeTiempo(System.currentTimeMillis());
+        long start = System.currentTimeMillis();
         int[] nuevo = new int[vec.length];
         nuevo[0] = vec[0];
         for(int i = 1; i < vec.length; i++){
@@ -13,7 +13,7 @@ public class Ordenar1Vector implements OrdenarVector {
             }
             nuevo[j] = vec[i];
         }
-        de.añadeTiempo(System.currentTimeMillis() - de.dameTiempo());
+        de.añadeTiempo((float) (System.currentTimeMillis() - start));
         System.arraycopy(nuevo, 0, vec, 0, vec.length);
     }
     
