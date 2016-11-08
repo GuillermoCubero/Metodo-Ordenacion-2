@@ -18,18 +18,27 @@ public class Ordenar2Vector implements OrdenarVector {
         
         for(part = 1; part < npartes; part++){
             selpart(vec, vec.length, aux, nelementos, part); 
+            de.añadeComparacion();
+            de.añadeMovimiento();
+            de.añadeMovimiento();
         }
         for(int m = 0; m < vec.length; m++){
             int menor = aux[0];
             part = 1;
             for(int e = 1; e < npartes; e++){
                 if(aux[e] < menor){
+                    de.añadeComparacion();
                     menor = aux[e];
+                    de.añadeMovimiento();
                     part = e;
                 }
             }
             nuevo[m] = menor;
+            de.añadeMovimiento();
             selpart(vec, vec.length, aux, nelementos, part);
+            de.añadeComparacion();
+            de.añadeMovimiento();
+            de.añadeMovimiento();
         }
         de.añadeTiempo((float) (System.currentTimeMillis() - start));
         System.arraycopy(nuevo, 0, vec, 0, vec.length);
