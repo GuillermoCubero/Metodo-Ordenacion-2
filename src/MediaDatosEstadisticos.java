@@ -1,9 +1,7 @@
 public class MediaDatosEstadisticos {
     
     int numdatos;
-    float tiempos;
-    int nummov;
-    int numcomp;
+    float tiempos, numcomp, nummov;
     
     public MediaDatosEstadisticos(){
         numdatos = 0;
@@ -23,11 +21,11 @@ public class MediaDatosEstadisticos {
         return tiempos/numdatos;
     }
     
-    public int dameMediaComparaciones(){
+    public float dameMediaComparaciones(){
         return numcomp/numdatos;
     }
     
-    public int dameMediaMovimientos(){
+    public float dameMediaMovimientos(){
         return nummov/numdatos;
     }
 }
