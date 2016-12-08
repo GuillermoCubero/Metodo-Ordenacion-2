@@ -1,70 +1,61 @@
 public class Ordenar2Vector implements OrdenarVector {
-    public void ordena (int[] vec, DatosEstadisticos de){
-        long start = System.currentTimeMillis();
+    
+    public void ordena (int[] vector, DatosEstadisticos datosEstadisticos){
+        int n, npart, nelement, part, menor,  m;             
+        int[] vecs, aux;
+        n = vector.length;
+        vecs = new int[n];
+        datosEstadisticos.estableceComparaciones(0);
+        datosEstadisticos.estableceMovimientos(0);
         
-        int[] nuevo = new int[vec.length];
-        int part;
-        
-        int npartes = (int) Math.sqrt(vec.length);
-        int[] aux = new int[npartes];
-        int nelementos = npartes;
-        
-        if(nelementos*npartes < vec.length){
-            nelementos += 1;
-            if(npartes*nelementos < vec.length){
-                npartes += 1;
-            }
+        datosEstadisticos.estableceTiempo(System.currentTimeMillis());
+        nelement = npart = (int) Math.sqrt(n);        
+        aux = new int[npart+1];
+
+        if(nelement*npart < n){
+            nelement++;
+            if(npart*nelement < n)npart++;
         }
         
-        for(part = 1; part < npartes; part++){
-            selpart(vec, vec.length, aux, nelementos, part); 
-            de.añadeComparacion();
-            de.añadeMovimiento();
-            de.añadeMovimiento();
-        }
-        for(int m = 0; m < vec.length; m++){
-            int menor = aux[0];
+        for (part = 1; part <= npart; part++) selpart(vector, n, aux, nelement, part, datosEstadisticos);
+        
+        for (m = 0; m < n; m++){
+            menor = aux[0];
             part = 1;
-            for(int e = 1; e < npartes; e++){
-                if(aux[e] < menor){
-                    de.añadeComparacion();
-                    menor = aux[e];
-                    de.añadeMovimiento();
+            for (int e = 1; e <= npart; e++){
+                datosEstadisticos.añadeComparacion();
+                if (aux[e-1] < menor){
+                    menor = aux[e-1];
                     part = e;
                 }
             }
-            nuevo[m] = menor;
-            de.añadeMovimiento();
-            selpart(vec, vec.length, aux, nelementos, part);
-            de.añadeComparacion();
-            de.añadeMovimiento();
-            de.añadeMovimiento();
+            datosEstadisticos.añadeMovimiento();
+            vecs[m] = menor;
+            selpart(vector, n, aux, nelement, part, datosEstadisticos);
         }
-        de.añadeTiempo((float) (System.currentTimeMillis() - start));
-        System.arraycopy(nuevo, 0, vec, 0, vec.length);
+        datosEstadisticos.estableceTiempo((System.currentTimeMillis() - datosEstadisticos.dameTiempo())/1000);
+        for (m = 0; m < n; m++)vector[m] = vecs[m];
     }
-    
-    public void selpart(int[] vec, int length, int[] aux, int nelementos, int part){
-        int INT_MAX = 2147483647;
-        int primero = (part-1)*nelementos+1;
-        int ultimo;
-        if(nelementos*part < length){
-            ultimo = nelementos*part;
-        }else{
-            ultimo = length;
-        }
-        int pos = primero;
-        int menor = vec[primero];
-        for(int elem = primero+1; elem < ultimo; elem++){
-            if(vec[elem] < menor){
+    private void selpart(int[] vec, int n, int[] aux, int nele, int part, DatosEstadisticos de)
+    {     
+        int primero, ultimo, pos, menor, elem;
+        
+        primero = (part-1)*nele;
+        ultimo = (nele*part < n)?nele*part-1:n-1;
+        menor = vec[primero];
+        pos = primero;
+        
+        for (elem = primero+1; elem <= ultimo; elem++){
+            de.añadeComparacion();
+            if (vec[elem] < menor){
                 menor = vec[elem];
                 pos = elem;
             }
         }
-        aux[part] = menor;
-        vec[pos] = INT_MAX;
+        de.añadeMovimiento();
+        aux[part-1] = menor;
+        vec[pos] =  Integer.MAX_VALUE;
     }
-    
     public String nombreMetodo (){
         return "Selección Cuadrática";
     }

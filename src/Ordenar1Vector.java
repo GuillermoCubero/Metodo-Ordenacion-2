@@ -1,24 +1,25 @@
 public class Ordenar1Vector implements OrdenarVector {
-    public void ordena (int[] vec, DatosEstadisticos de){
-        long start = System.currentTimeMillis();
-        int[] nuevo = new int[vec.length];
-        nuevo[0] = vec[0];
-        de.añadeMovimiento();
-        for(int i = 1; i < vec.length; i++){
+    public void ordena (int[] vector, DatosEstadisticos datosEstadisticos){
+        int[] nuevo = new int[vector.length];
+        datosEstadisticos.estableceTiempo(System.currentTimeMillis());
+        nuevo[0] = vector[0];
+        datosEstadisticos.añadeMovimiento();
+        for(int i = 1; i < vector.length; i++){
             int j = 0;
-            while((j < i) && (nuevo[j] <= vec[i])){
-                de.añadeComparacion();
+            datosEstadisticos.añadeComparacion();
+            while((j < i) && (nuevo[j] <= vector[i])){
+                datosEstadisticos.añadeComparacion();
                 j += 1;
             }
             for(int k = i-1; k >= j; k--){
                 nuevo[k+1] = nuevo[k];
-                de.añadeMovimiento();
+                datosEstadisticos.añadeMovimiento();
             }
-            nuevo[j] = vec[i];
-            de.añadeMovimiento();
+            nuevo[j] = vector[i];
+            datosEstadisticos.añadeMovimiento();
         }
-        de.añadeTiempo((float) (System.currentTimeMillis() - start));
-        System.arraycopy(nuevo, 0, vec, 0, vec.length);
+        datosEstadisticos.estableceTiempo((System.currentTimeMillis() - datosEstadisticos.dameTiempo())/1000);
+        System.arraycopy(nuevo, 0, vector, 0, vector.length);
     }
     
     public String nombreMetodo (){
