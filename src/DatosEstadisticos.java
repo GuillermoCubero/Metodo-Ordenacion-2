@@ -1,48 +1,36 @@
 public class DatosEstadisticos{
     
-    public double tiempo;
-    public int ncomp;
-    public int nmov;
+    private double tiempo;
+    private int comp, mov;
     
     public DatosEstadisticos(){
-        tiempo = 0;
-        ncomp = 0;
-        nmov = 0;
+        tiempo = 0; comp = 0; mov = 0;
     }
-    
     public void añadeTiempo(double tiemponuevo){
         tiempo += tiemponuevo;
     }
-    
     public void estableceTiempo(double tiemponuevo){
         tiempo = tiemponuevo;
     }
-    
     public double dameTiempo(){
         return tiempo;
     }
-    
     public void añadeComparacion(){
-        ncomp += 1;
+        comp++;
     }
-    
     public void añadeMovimiento(){
-        nmov += 1;
+        mov++;
     }
-    
     public void estableceComparaciones(int comp){
-        ncomp = comp;
+        this.comp = comp;
     }
-    
     public void estableceMovimientos(int mov){
-        nmov = mov;
+        this.mov = mov;
     }
-    
     public int dameComparaciones(){
-        return ncomp;
+        return comp;
     }
-    
     public int dameMovimientos(){
-        return nmov;
+        return mov;
     }
 }

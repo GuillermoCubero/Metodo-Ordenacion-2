@@ -1,31 +1,36 @@
 public class MediaDatosEstadisticos {
     
-    int numdatos;
-    float tiempos, numcomp, nummov;
+    private int numeroDeDatosEstadisticos;
+    private float tiempoTotal, numeroTotalDeComparaciones, numeroTotalDeMovimientos;
     
     public MediaDatosEstadisticos(){
-        numdatos = 0;
-        tiempos = 0;
-        nummov = 0;
-        numcomp = 0;
+        numeroDeDatosEstadisticos = 0;
+        tiempoTotal = 0;
+        numeroTotalDeMovimientos = 0;
+        numeroTotalDeComparaciones = 0;
     }
     
-    public void añadeDatosEstadisticos(DatosEstadisticos de){
-        numdatos +=1;
-        tiempos += de.dameTiempo();
-        nummov += de.dameMovimientos();
-        numcomp += de.dameComparaciones();
+    public void añadeDatosEstadisticos(DatosEstadisticos datosEstadisticos){
+        tiempoTotal += datosEstadisticos.dameTiempo();
+        numeroTotalDeMovimientos += datosEstadisticos.dameMovimientos();
+        numeroTotalDeComparaciones += datosEstadisticos.dameComparaciones();
+        numeroDeDatosEstadisticos++;
     }
     
     public float dameMediaTiempos(){
-        return tiempos/numdatos;
+        return media(tiempoTotal);
     }
-    
+
+
     public float dameMediaComparaciones(){
-        return numcomp/numdatos;
+        return media(numeroTotalDeComparaciones);
     }
-    
+
     public float dameMediaMovimientos(){
-        return nummov/numdatos;
+        return media(numeroTotalDeMovimientos);
+    }
+
+    private float media(float total) {
+        return total / numeroDeDatosEstadisticos;
     }
 }

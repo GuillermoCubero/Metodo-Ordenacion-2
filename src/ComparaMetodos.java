@@ -8,8 +8,8 @@ public class ComparaMetodos {
 
     private static void tablaEstadistica(OrdenarVector ordenarVector) {
         System.out.println(ordenarVector.nombreMetodo());
-        DatosEstadisticos[] datosEstadisticosVectorInverso = CalculadorEstadísticas.estadisticasOrdenaVectoresInversos(ordenarVector, sizes);
-        MediaDatosEstadisticos[] mediaDatosEstadisticosVectorAleatorio = CalculadorEstadísticas.estadisticasOrdenaVectoresAleatorios(ordenarVector, sizes);
+        DatosEstadisticos[] datosEstadisticosVectorInverso = CalculadorEstadisticas.estadisticasOrdenaVectoresInversos(ordenarVector, sizes);
+        MediaDatosEstadisticos[] mediaDatosEstadisticosVectorAleatorio = CalculadorEstadisticas.estadisticasOrdenaVectoresAleatorios(ordenarVector, sizes);
         printTable(datosEstadisticosVectorInverso);
         printTable(mediaDatosEstadisticosVectorAleatorio);
     }
